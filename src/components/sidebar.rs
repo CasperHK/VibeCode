@@ -44,8 +44,8 @@ const BOTTOM_ITEMS: &[NavItem] = &[
 /// subscriber to re-render automatically.
 #[component]
 pub fn Sidebar() -> Element {
-    let mut state = use_context::<AppState>();
-    let mut active_section = use_signal(|| "explorer");
+    let state = use_context::<AppState>();
+    let active_section = use_signal(|| "explorer");
 
     let collapsed = (state.sidebar_collapsed)();
     let sidebar_class = if collapsed { "sidebar collapsed" } else { "sidebar expanded" };
