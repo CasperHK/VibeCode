@@ -1,5 +1,6 @@
 # 🛸 VibeCode
 The Next-Generation AI Code Editor, Built with Rust & Dioxus.
+
 VibeCode 是一款專為 AI 協作時代設計的跨平台程式碼編輯器。不同於傳統編輯器，它利用 Dioxus 的原生效能與 Signals 反應機制，將 AI 生成、代碼編輯與行動端預覽（Mobile View）無縫整合在一個流暢的 UI 體驗中。
 
 
