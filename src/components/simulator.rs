@@ -36,7 +36,7 @@ use crate::AppState;
 /// is no serialisation overhead at all.
 #[component]
 pub fn MobileSimulator() -> Element {
-    let state = use_context::<AppState>();
+    let mut state = use_context::<AppState>();
 
     let visible = (state.simulator_visible)();
     let panel_class = if visible {
@@ -45,9 +45,11 @@ pub fn MobileSimulator() -> Element {
         "simulator-panel hidden"
     };
 
-    // Count how many characters are in the preview (for the badge)
-    let char_count = (state.code_content)().len();
-    let line_count = (state.code_content)().lines().count();
+    // Read the signal once — both stats and the preview renderer share this
+    // single owned String, avoiding duplicate full-buffer clones per render.
+    let code = (state.code_content)();
+    let char_count = code.len();
+    let line_count = code.lines().count();
 
     rsx! {
         aside { class: "{panel_class}",
@@ -62,11 +64,16 @@ pub fn MobileSimulator() -> Element {
                         title: "Sync is live — powered by Dioxus Signals",
                         "⟳"
                     }
-                    // Toggle simulator visibility
+                    // Toggle simulator visibility — read the current value
+                    // inside the handler to avoid stale-capture issues when
+                    // the button is clicked before a re-render completes.
                     button {
                         class: "icon-btn",
                         title: if visible { "Hide simulator" } else { "Show simulator" },
-                        onclick: move |_| state.simulator_visible.set(!visible),
+                        onclick: move |_| {
+                            let current = (state.simulator_visible)();
+                            state.simulator_visible.set(!current);
+                        },
                         { if visible { "⊟" } else { "⊞" } }
                     }
                 }
@@ -89,7 +96,7 @@ pub fn MobileSimulator() -> Element {
                             // changes, providing the live preview behaviour.
                             pre {
                                 class: "phone-code-preview",
-                                dangerous_inner_html: "{render_preview(&(state.code_content)())}",
+                                dangerous_inner_html: "{render_preview(&code)}",
                             }
                         }
                     }

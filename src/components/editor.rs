@@ -28,9 +28,10 @@ use crate::AppState;
 pub fn Editor() -> Element {
     let mut state = use_context::<AppState>();
 
-    // Derive line count from the signal — Dioxus will re-compute only when
-    // `code_content` changes, keeping rendering cost minimal.
-    let line_count = (state.code_content)().lines().count().max(1);
+    // Read code_content once — reused for both the line-number gutter and the
+    // textarea value, avoiding two full-buffer clones per render.
+    let code = (state.code_content)();
+    let line_count = code.lines().count().max(1);
     let (cursor_line, cursor_col) = (state.cursor_position)();
 
     rsx! {
@@ -69,7 +70,7 @@ pub fn Editor() -> Element {
                     autocapitalize: "off",
                     wrap: "off",
                     placeholder: "// Start coding…",
-                    value: "{(state.code_content)()}",
+                    value: "{code}",
 
                     // Update shared signal on every keystroke
                     oninput: move |e| {
