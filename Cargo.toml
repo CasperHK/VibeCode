@@ -1,0 +1,19 @@
+[package]
+name = "vibecode"
+version = "0.1.0"
+edition = "2021"
+description = "VibeCode — The Next-Generation AI Code Editor, Built with Rust & Dioxus"
+license = "MIT"
+
+[dependencies]
+# Dioxus 0.6 with desktop (WebView) renderer
+dioxus = { version = "0.6", features = ["desktop"] }
+
+[profile.dev]
+opt-level = 1
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true

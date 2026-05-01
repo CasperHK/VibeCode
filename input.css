@@ -1,0 +1,69 @@
+/* VibeCode — Tailwind CSS source file
+ *
+ * Compile with:
+ *   npx tailwindcss -i ./input.css -o ./assets/tailwind.css --watch
+ *
+ * Or for a production build:
+ *   npx tailwindcss -i ./input.css -o ./assets/tailwind.css --minify
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base layer */
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-canvas text-fg font-mono overflow-hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-fg-subtle;
+  }
+
+  ::selection {
+    background: rgba(56, 139, 253, 0.35);
+  }
+}
+
+/* Custom component layer */
+@layer components {
+  .sidebar-icon {
+    @apply flex items-center justify-center w-10 h-10 rounded-md text-fg-muted
+           hover:text-fg hover:bg-border-muted transition-colors duration-150 cursor-pointer;
+  }
+
+  .editor-tab {
+    @apply flex items-center gap-2 px-4 h-9 text-xs border-r border-border
+           text-fg-muted hover:text-fg cursor-pointer transition-colors duration-150;
+  }
+
+  .editor-tab.active {
+    @apply text-fg border-t-2 border-t-accent-blue bg-canvas;
+  }
+
+  .phone-frame {
+    box-shadow: theme("boxShadow.phone");
+  }
+}
