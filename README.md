@@ -1,8 +1,28 @@
-# VibeCode
+# 🛸 VibeCode
 
 **The Next-Generation AI Code Editor, Built with Rust & Dioxus.**
 
+VibeCode 是一款專為 AI 協作時代設計的跨平台程式碼編輯器。不同於傳統編輯器，它利用 Dioxus 的原生效能與 Signals 反應機制，將 AI 生成、代碼編輯與行動端預覽（Mobile View）無縫整合在一個流暢的 UI 體驗中。
+
 A cutting-edge, AI-native code editor featuring a sleek dark-mode frameless window, a three-column layout, and a reactive Mobile View Simulator — all powered by Dioxus 0.6 Signals for zero-latency state synchronisation.
+
+---
+
+## ✨ 特色功能
+
+* 🚀 極致效能 (Dioxus Powered)：超越 Tauri 的資源佔用與通訊速度。透過 Rust 原生渲染與高效的 V-DOM，實現零延遲的 AI 流式輸出。
+* 🤖 AI-Native Workflow：深度整合 LLM，支持即時語義補全、自動化重構與對話式代碼修正。
+* 📱 內建 Mobile View：無需額外模擬器！編輯器內建真正的行動端渲染容器，支持觸控模擬與響應式開發。
+* 🦀 100% Type-Safe Rust：從後端邏輯到 UI 介面全採用 Rust 編寫，享受最強大的編譯期檢查。
+* ⚡ Vibe-Driven UI：極簡、沉浸式的介面設計，專為追求「心流」的開發者打造。
+
+## 🛠 技術棧
+
+* Core: [Rust](https://www.rust-lang.org/)
+* Frontend Framework: [Dioxus](https://dioxuslabs.com/) (Signals, Full-stack reactivity)
+* Styling: Tailwind CSS
+* AI Backend: LLM Connector (Supports Ollama, OpenAI, Anthropic)
+* Rendering: Wry / WGPU (Native Graphics)
 
 ---
 
@@ -57,15 +77,17 @@ Child components call `use_context::<AppState>()` to read and write signals — 
 
 ---
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- **Rust** 1.70+ — <https://rustup.rs>
-- **GTK 3 / WebKit2GTK** (Linux) — see below
-- **Node.js + npm** (optional, for Tailwind CLI)
+確保你已安裝 [Rust 1.75+](https://rustup.rs/) 與 dx 命令行工具：
 
-#### Linux system libraries
+```bash
+cargo install dioxus-cli
+```
+
+**Linux** — additional system libraries required:
 
 ```bash
 sudo apt-get install -y \
@@ -74,10 +96,16 @@ sudo apt-get install -y \
   libxdo-dev libappindicator3-dev librsvg2-dev
 ```
 
-### Run (desktop)
+### Run
 
 ```bash
+# Desktop (native window)
 cargo run
+# or
+dx serve --platform desktop
+
+# Web (requires Tailwind output — see below)
+dx serve --platform web
 ```
 
 ### Tailwind CSS (optional)
@@ -91,7 +119,12 @@ npx tailwindcss -i ./input.css -o ./assets/tailwind.css --watch
 
 ---
 
-## Roadmap
+## 🗺 Roadmap
+
+* Phase 1: 整合高效能文字編輯元件。
+* Phase 2: 實作 AI 流式對話視窗與 Context 注入機制。
+* Phase 3: 完善 Mobile View 縮放與熱重載同步。
+* Phase 4: 支援外掛插件系統。
 
 - [ ] Replace `<textarea>` with a WebComponent code editor (CodeMirror / Monaco)
 - [ ] Tree-sitter incremental parsing for full syntax highlighting

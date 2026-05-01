@@ -26,7 +26,7 @@ use crate::AppState;
 ///   (e.g. llama.cpp via `llm` crate) without leaving Rust's memory space.
 #[component]
 pub fn Editor() -> Element {
-    let mut state = use_context::<AppState>();
+    let state = use_context::<AppState>();
 
     // Read code_content once — reused for both the line-number gutter and the
     // textarea value, avoiding two full-buffer clones per render.
