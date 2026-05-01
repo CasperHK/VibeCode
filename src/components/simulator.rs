@@ -36,7 +36,7 @@ use crate::AppState;
 /// is no serialisation overhead at all.
 #[component]
 pub fn MobileSimulator() -> Element {
-    let mut state = use_context::<AppState>();
+    let state = use_context::<AppState>();
 
     let visible = (state.simulator_visible)();
     let panel_class = if visible {
