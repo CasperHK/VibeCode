@@ -192,11 +192,15 @@ fn starts_with_keyword(s: &str) -> bool {
 /// The split point is the end of the first identifier token, not the first
 /// space, so constructs like `fn(`, `if(`, and `match(` only colour the
 /// keyword itself.
-fn split_first_word(s: &str) -> (&str, &str) {
-    let trimmed = s.trim_start();
-    let leading = s.len() - trimmed.len();
+///
+/// The split point is the end of the first identifier token, not the first
+/// space, so constructs like `fn(`, `if(`, and `match(` only colour the
     let token_len = trimmed
         .find(|c: char| !c.is_alphanumeric() && c != '_')
+        .unwrap_or(trimmed.len());
+
+    // Include any leading indent inside the keyword span.
+    (&s[..leading + token_len], &s[leading + token_len..])
         .unwrap_or(trimmed.len());
 
     // Include any leading indent inside the keyword span.
